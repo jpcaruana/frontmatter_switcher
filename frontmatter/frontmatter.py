@@ -15,4 +15,8 @@ def order(toml_string):
             target_toml["extra"][key] = value
         else:
             target_toml[key] = value
+    if target_toml.get("taxonomies") == {}:
+        target_toml.pop("taxonomies")
+    if target_toml.get("extra") == {}:
+        target_toml.pop("extra")
     return toml.dumps(target_toml)
