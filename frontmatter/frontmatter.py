@@ -1,6 +1,15 @@
 import toml
 
 
+def build(frontmatter, content):
+    return "+++\n" + frontmatter + "+++" + content
+
+
+def extract(content):
+    parts = content.split("+++")
+    return parts[1], parts[2]
+
+
 def order(toml_string):
     parsed_toml = toml.loads(toml_string)
     target_toml = {"taxonomies": {}, "extra": {}}
