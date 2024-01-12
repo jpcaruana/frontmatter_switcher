@@ -109,6 +109,24 @@ Some markdown content
 """
 
 
+def test_extract_yaml():
+    file_content = """---
+date: "2020-09-08"
+title: "Some title"
+---
+Some markdown content
+"""
+    toml, content = extract(file_content)
+
+    assert toml == """
+date: "2020-09-08"
+title: "Some title"
+"""
+    assert content == """
+Some markdown content
+"""
+
+
 def test_build_filecontent():
     toml = """date = 2020-09-08T16:18:51+02:00
 title = "Some title"
