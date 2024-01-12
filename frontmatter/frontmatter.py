@@ -26,12 +26,15 @@ def order(toml_string):
         parsed_toml = toml.loads(toml_string)
     except TomlDecodeError:
         parsed_toml = yaml.load(toml_string, Loader=Loader)
+
     target_toml = {"taxonomies": {}, "extra": {}}
     for key in parsed_toml.keys():
         value = parsed_toml.get(key)
         if key in ["taxonomies", "extra"]:
             continue
         if key in ["tags", "categories"]:
+            if isinstance(value, str):
+                value = [value]
             target_toml["taxonomies"][key] = value
             continue
         if key not in ["date", "title"]:

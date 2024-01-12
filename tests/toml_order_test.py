@@ -22,7 +22,49 @@ twitter = "https://twitter.com/jpcaruana/status/1303356472705921026"
     assert expected == actual
 
 
-def test_order_yalm_to_toml():
+def test_order_toml_one_category_in_list():
+    input = """date = 2020-09-08T16:18:51+02:00
+title = "Lire le cycle de l'Assassin Royal, c'est compliqué"
+tags = ["livre", "other"]
+categories = [ "cat1",]
+twitter = "https://twitter.com/jpcaruana/status/1303356472705921026"
+"""
+    expected = """date = 2020-09-08T16:18:51+02:00
+title = "Lire le cycle de l'Assassin Royal, c'est compliqué"
+
+[taxonomies]
+tags = [ "livre", "other",]
+categories = [ "cat1",]
+
+[extra]
+twitter = "https://twitter.com/jpcaruana/status/1303356472705921026"
+"""
+    actual = order(input)
+    assert expected == actual
+
+
+def test_order_toml_one_category_as_string():
+    input = """date = 2020-09-08T16:18:51+02:00
+title = "Lire le cycle de l'Assassin Royal, c'est compliqué"
+tags = ["livre", "other"]
+categories = "cat1"
+twitter = "https://twitter.com/jpcaruana/status/1303356472705921026"
+"""
+    expected = """date = 2020-09-08T16:18:51+02:00
+title = "Lire le cycle de l'Assassin Royal, c'est compliqué"
+
+[taxonomies]
+tags = [ "livre", "other",]
+categories = [ "cat1",]
+
+[extra]
+twitter = "https://twitter.com/jpcaruana/status/1303356472705921026"
+"""
+    actual = order(input)
+    assert expected == actual
+
+
+def test_order_yaml_to_toml():
     input = """layout: post
 title: "Du G dans le SI, pour quoi faire ?"
 date: 2019-05-13
@@ -35,7 +77,7 @@ date = 2019-05-13
 
 [taxonomies]
 tags = [ "open-data",]
-categories = "découverte"
+categories = [ "découverte",]
 
 [extra]
 layout = "post"
