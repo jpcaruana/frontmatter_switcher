@@ -13,7 +13,11 @@ def build(frontmatter, content):
 
 
 def extract(content):
+    # try toml
     parts = content.split("+++")
+    if len(parts) == 1:
+        # not toml, try yaml
+        parts = content.split("---")
     return parts[1], parts[2]
 
 
