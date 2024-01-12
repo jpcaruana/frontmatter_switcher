@@ -22,6 +22,31 @@ twitter = "https://twitter.com/jpcaruana/status/1303356472705921026"
     assert expected == actual
 
 
+def test_order_yalm_to_toml():
+    input = """layout: post
+title: "Du G dans le SI, pour quoi faire ?"
+date: 2019-05-13
+tags: ["open-data"]
+categories: découverte
+author: "Vincent Ferrand"
+comments: true"""
+    expected = """title = "Du G dans le SI, pour quoi faire ?"
+date = 2019-05-13
+
+[taxonomies]
+tags = [ "open-data",]
+categories = "découverte"
+
+[extra]
+layout = "post"
+author = "Vincent Ferrand"
+comments = true
+"""
+    actual = order(input)
+    print(actual)
+    assert expected == actual
+
+
 def test_order_toml_no_taxonomies():
     input = """date = 2020-09-08T16:18:51+02:00
 title = "Lire le cycle de l'Assassin Royal, c'est compliqué"
